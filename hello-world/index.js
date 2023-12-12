@@ -1,5 +1,5 @@
-let hello="hello";
+const hello="hello";
 returnHello=()=>{
-    console.log(hello);
+    console.log("hello");
 }
 returnHello;
