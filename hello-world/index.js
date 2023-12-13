@@ -1,5 +1,1 @@
-const hello="hello";
-returnHello=()=>{
-    console.log("hello");
-}
-returnHello;
+console.log("Hello Github!")
