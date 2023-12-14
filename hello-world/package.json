@@ -1,11 +1,11 @@
 {
   "name": "hello-world",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple Hello Github Program",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Your Name",
   "license": "ISC"
 }
