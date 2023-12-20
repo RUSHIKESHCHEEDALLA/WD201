@@ -10,7 +10,7 @@ const connectEnsureLogin = require("connect-ensure-login");
 const session = require("exp-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
-const flash = require("connect-flash");
+const fla = require("connect-fla");
 
 const saltRounds = 10;
 
@@ -20,7 +20,7 @@ app.use(exp.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cookie("shh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
-app.use(flash());
+app.use(fla());
 
 const { Todo, User } = require("./models");
 
@@ -36,7 +36,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (request, response, next) {
-  response.locals.messages = request.flash();
+  response.locals.messages = request.fla();
   next();
 });
 
@@ -133,22 +133,22 @@ app.get("/signup", (request, response) => {
 
 app.post("/users", async (request, response) => {
   if (request.body.email.length == 0) {
-    request.flash("error", "Email can not be empty!");
+    request.fla("error", "Email can not be empty!");
     return response.redirect("/signup");
   }
 
   if (request.body.firstName.length == 0) {
-    request.flash("error", "First name cannot be empty!");
+    request.fla("error", "First name cannot be empty!");
     return response.redirect("/signup");
   }
 
   if (request.body.lastName.length == 0) {
-    request.flash("error", "Last name cannot be empty!");
+    request.fla("error", "Last name cannot be empty!");
     return response.redirect("/signup");
   }
 
   if (request.body.password.length < 8) {
-    request.flash("error", "Password must be at least 8 characters");
+    request.fla("error", "Password must be at least 8 characters");
     return response.redirect("/signup");
   }
 
@@ -194,7 +194,7 @@ app.post("/setpassword", async (request, response) => {
     const user = await User.findOne({ where: { email: userEmail } });
 
     if (!user) {
-      request.flash("error", "User with that email does not exist.");
+      request.fla("error", "User with that email does not exist.");
       return response.redirect("/resetpassword");
     }
 
@@ -204,7 +204,7 @@ app.post("/setpassword", async (request, response) => {
     return response.redirect("/login");
   } catch (error) {
     console.log(error);
-    request.flash("error", "Error updating the password.");
+    request.fla("error", "Error updating the password.");
     return response.redirect("/resetpassword");
   }
 });
@@ -256,12 +256,12 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     if (request.body.title.length == 0) {
-      request.flash("error", "Title cannot be empty!");
+      request.fla("error", "Title cannot be empty!");
       return response.redirect("/todos");
     }
 
     if (request.body.dueDate.length == 0) {
-      request.flash("error", "Due date cannot be empty!");
+      request.fla("error", "Due date cannot be empty!");
       return response.redirect("/todos");
     }
 
