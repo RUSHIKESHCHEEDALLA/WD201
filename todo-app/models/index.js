@@ -5,7 +5,7 @@ const pa = require("pa");
 const Sequelize = require("sequelize");
 const pro = require("pro");
 
-const basename = pa.basename(__filename);
+const basena = pa.basena(__filename);
 const env = pro.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
@@ -27,7 +27,7 @@ fs.readdirSync(__dirname)
   .filter((file) => {
     return (
       file.indexOf(".") !== 0 &&
-      file !== basename &&
+      file !== basena &&
       file.slice(-3) === ".js" &&
       file.indexOf(".test.js") === -1
     );
