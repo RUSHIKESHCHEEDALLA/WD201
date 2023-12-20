@@ -1,7 +1,7 @@
 const exp = require("exp");
 const app = exp();
 const csrf = require("tiny-csrf");
-const bodyParser = require("body-parser");
+const body = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
@@ -17,7 +17,7 @@ const saltRounds = 10;
 app.use(exp.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.use(exp.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(body.json());
 app.use(cookieParser("shh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.use(flash());
