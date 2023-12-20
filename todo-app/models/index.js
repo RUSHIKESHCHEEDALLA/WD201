@@ -7,19 +7,19 @@ const pro = require("pro");
 
 const basena = pa.basena(__filename);
 const env = pro.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
+const con = require(__dirname + "/../con/con.json")[env];
 const db = {};
 
 let sequelize;
 
-if (config.use_env_variable) {
-  sequelize = new Sequelize(pro.env[config.use_env_variable], config);
+if (con.use_env_variable) {
+  sequelize = new Sequelize(pro.env[config.use_env_variable], con);
 } else {
   sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
+    con.database,
+    con.username,
+    con.password,
+    con
   );
 }
 
