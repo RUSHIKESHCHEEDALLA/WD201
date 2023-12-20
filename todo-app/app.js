@@ -6,7 +6,7 @@ const cookie = require("cookie-parser");
 const path = require("path");
 
 const passport = require("passport");
-const connectEnsureLogin = require("connect-ensure-login");
+const connectEnsLog = require("connect-ensure-login");
 const session = require("exp-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
@@ -94,7 +94,7 @@ app.get("/", async (request, response) => {
 
 app.get(
   "/todos",
-  connectEnsureLogin.ensureLoggedIn(),
+  connectEnsLog.ensureLoggedIn(),
   async (request, response) => {
     const loggedInUser = request.user.id;
     const loggedInUserfName = request.user.firstName;
@@ -253,7 +253,7 @@ app.get("/todos/:id", async function (request, response) {
 
 app.post(
   "/todos",
-  connectEnsureLogin.ensureLoggedIn(),
+  connectEnsLog.ensureLoggedIn(),
   async (request, response) => {
     if (request.body.title.length == 0) {
       request.fla("error", "Title cannot be empty!");
@@ -282,7 +282,7 @@ app.post(
 
 app.put(
   "/todos/:id",
-  connectEnsureLogin.ensureLoggedIn(),
+  connectEnsLog.ensureLoggedIn(),
   async (request, response) => {
     console.log("We have to update a todo with ID:", request.params.id);
     const todo = await Todo.findByPk(request.params.id);
@@ -312,7 +312,7 @@ app.put("/todos/:id/markAsCompleted", async (request, response) => {
 
 app.delete(
   "/todos/:id",
-  connectEnsureLogin.ensureLoggedIn(),
+  connectEnsLog.ensureLoggedIn(),
   async (request, response) => {
     const loggedInUser = request.user.id;
     console.log("We have to delete a todo with ID: ", request.params.id);
