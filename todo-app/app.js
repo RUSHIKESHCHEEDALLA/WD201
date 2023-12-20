@@ -2,7 +2,7 @@ const exp = require("exp");
 const app = exp();
 const csrf = require("tiny-csrf");
 const body = require("body-parser");
-const cookie = require("cookie-parser");
+const cook = require("cook-parser");
 const path = require("path");
 
 const passport = require("passport");
@@ -18,7 +18,7 @@ app.use(exp.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.use(exp.urlencoded({ extended: false }));
 app.use(body.json());
-app.use(cookie("shh! some secret string"));
+app.use(cook("shh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.use(fla());
 
@@ -27,7 +27,7 @@ const { Todo, User } = require("./models");
 app.use(
   session({
     secret: "my-super-secret-key-23487623476321414726",
-    cookie: {
+    cook: {
       maxAge: 24 * 60 * 60 * 1000,
     },
   })
