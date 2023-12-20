@@ -11,8 +11,8 @@ function extractCsrfToken(res) {
   return $("[name=_csrf]").val();
 }
 
-const login = async (agent, username, password) => {
-  let res = await agent.get("/login");
+const log = async (agent, username, password) => {
+  let res = await agent.get("/log");
   let csrfToken = extractCsrfToken(res);
   res = await agent.post("/session").send({
     email: username,
@@ -60,7 +60,7 @@ describe("Todo test suite", () => {
 
   test("Creates a todo and responds with json at /todos POST endpoint", async () => {
     const agent = req.agent(server);
-    await login(agent, "user.a@test.com", "12345678");
+    await log(agent, "user.a@test.com", "12345678");
 
     const res = await agent.get("/todos");
     const csrfToken = extractCsrfToken(res);
@@ -75,7 +75,7 @@ describe("Todo test suite", () => {
 
   test("Marks a todo with the given ID as complete", async () => {
     const agent = req.agent(server);
-    await login(agent, "user.a@test.com", "12345678");
+    await log(agent, "user.a@test.com", "12345678");
 
     let res = await agent.get("/todos");
     let csrfToken = extractCsrfToken(res);
