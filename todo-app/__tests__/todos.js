@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const request = require("supertest");
+const req = require("supertest");
 const cheerio = require("cheerio");
 const db = require("../models/index");
 const app = require("../app");
@@ -25,7 +25,7 @@ describe("Todo test suite", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
     server = app.listen(3000, () => {});
-    agent = request.agent(server);
+    agent = req.agent(server);
   });
 
   afterAll(async () => {
@@ -59,7 +59,7 @@ describe("Todo test suite", () => {
   });
 
   test("Creates a todo and responds with json at /todos POST endpoint", async () => {
-    const agent = request.agent(server);
+    const agent = req.agent(server);
     await login(agent, "user.a@test.com", "12345678");
 
     const res = await agent.get("/todos");
@@ -74,7 +74,7 @@ describe("Todo test suite", () => {
   });
 
   test("Marks a todo with the given ID as complete", async () => {
-    const agent = request.agent(server);
+    const agent = req.agent(server);
     await login(agent, "user.a@test.com", "12345678");
 
     let res = await agent.get("/todos");
@@ -104,7 +104,7 @@ describe("Todo test suite", () => {
   });
   
   test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
-    const agent = request.agent(server);
+    const agent = req.agent(server);
     await login(agent, "user.a@test.com", "12345678");
 
     let res = await agent.get("/todos");
