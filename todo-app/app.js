@@ -1,5 +1,5 @@
-const express = require("express");
-const app = express();
+const exp = require("exp");
+const app = exp();
 const csrf = require("tiny-csrf");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -7,16 +7,16 @@ const path = require("path");
 
 const passport = require("passport");
 const connectEnsureLogin = require("connect-ensure-login");
-const session = require("express-session");
+const session = require("exp-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
 
 const saltRounds = 10;
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(exp.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: false }));
+app.use(exp.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser("shh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
